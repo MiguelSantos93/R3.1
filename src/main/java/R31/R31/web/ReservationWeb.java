@@ -2,6 +2,8 @@
 package R31.R31.web;
 
 import R31.R31.model.Reservation;
+import R31.R31.model.custom.CountClient;
+import R31.R31.model.custom.StatusAmount;
 import R31.R31.service.ReservationService;
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +53,21 @@ public class ReservationWeb {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int reservationId) {
         return servicios.deleteReservation(reservationId);
+    }
+    
+    //RETO 5
+
+    @GetMapping("/report-status")
+    public StatusAmount getReservationDescriptionStatus(){
+        return servicios.getStatusReport();
+    }
+    @GetMapping("/report-clients")
+    public List<CountClient> getCountClient(){
+        return servicios.getTopClient();
+    }
+
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getDatesReport(@PathVariable("dateOne")String d1, @PathVariable("dateTwo")String d2){
+       return servicios.getReservationPeriod(d1,d2);
     }
 }
